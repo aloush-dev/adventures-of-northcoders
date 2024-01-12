@@ -40,7 +40,7 @@ const ProgressTracker = () => {
       {open ? (
         <>
           <motion.div
-            initial={{ y: -70 }}
+            initial={{ y: -140 }}
             animate={{ y: 1 }}
             exit={{ y: -70 }}
             className="flex py-2 pt-4"
