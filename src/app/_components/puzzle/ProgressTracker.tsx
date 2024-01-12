@@ -27,44 +27,47 @@ const ProgressTracker = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-600">
-      {open ? null : (
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-2xl text-gray-400"
-        >
-          <IoMdArrowDropdown />
+    <motion.div className="flex flex-col items-center justify-between bg-gray-600 py-2 text-gray-100">
+      <div className="flex items-center justify-between">
+        <button onClick={() => setOpen(!open)} className="p-2 font-semibold">
+          Sprint Progress
         </button>
-      )}
-
-      {open ? (
-        <>
-          <motion.div
-            initial={{ y: -140 }}
-            animate={{ y: 1 }}
-            exit={{ y: -70 }}
-            className="flex py-2 pt-4"
-          >
-            {puzzles.map((puzzle) => {
-              return (
-                <DayIndicator
-                  key={puzzle.id}
-                  day={puzzle.id}
-                  part1={puzzle.part1}
-                  part2={puzzle.part2}
-                />
-              );
-            })}
-          </motion.div>
+        {open ? (
           <button
             onClick={() => setOpen(!open)}
             className="text-2xl text-gray-400"
           >
             <IoMdArrowDropup />
           </button>
-        </>
+        ) : (
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-2xl text-gray-400 "
+          >
+            <IoMdArrowDropdown />
+          </button>
+        )}
+      </div>
+      {open ? (
+        <motion.div
+          initial={{ y: -140 }}
+          animate={{ y: -10 }}
+          exit={{ y: -60 }}
+          className="flex py-2 pt-4"
+        >
+          {puzzles.map((puzzle) => {
+            return (
+              <DayIndicator
+                key={puzzle.id}
+                day={puzzle.id}
+                part1={puzzle.part1}
+                part2={puzzle.part2}
+              />
+            );
+          })}
+        </motion.div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 
