@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Header } from "./_components/header/Header";
+import ProgressTracker from "./_components/puzzle/ProgressTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
         <TRPCReactProvider cookies={cookies().toString()}>
           <div id="profile-modal">
             <Header />
+            <ProgressTracker />
             {children}
           </div>
         </TRPCReactProvider>

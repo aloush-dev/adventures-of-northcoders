@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import DayIndicator from "./DayIndicator";
+import { motion } from "framer-motion";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const ProgressTracker = () => {
+  const [open, setOpen] = useState(false);
+
   const puzzles: {
     id: number;
     title: string;
@@ -21,17 +27,43 @@ const ProgressTracker = () => {
   ];
 
   return (
-    <div className="flex">
-      {puzzles.map((puzzle) => {
-        return (
-          <DayIndicator
-            key={puzzle.id}
-            day={puzzle.id}
-            part1={puzzle.part1}
-            part2={puzzle.part2}
-          />
-        );
-      })}
+    <div className="flex flex-col items-center justify-center bg-gray-600">
+      {open ? null : (
+        <button
+          onClick={() => setOpen(!open)}
+          className="text-2xl text-gray-400"
+        >
+          <IoMdArrowDropdown />
+        </button>
+      )}
+
+      {open ? (
+        <>
+          <motion.div
+            initial={{ y: -70 }}
+            animate={{ y: 1 }}
+            exit={{ y: -70 }}
+            className="flex py-2 pt-4"
+          >
+            {puzzles.map((puzzle) => {
+              return (
+                <DayIndicator
+                  key={puzzle.id}
+                  day={puzzle.id}
+                  part1={puzzle.part1}
+                  part2={puzzle.part2}
+                />
+              );
+            })}
+          </motion.div>
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-2xl text-gray-400"
+          >
+            <IoMdArrowDropup />
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };
