@@ -22,6 +22,7 @@ export const HintButton = ({
       {children}
       {hintClick && (
         <HintModal
+        hintClick={hintClick}
           setHintClick={setHintClick}
           hintInfo={hint}
           clickPos={clickPos}

@@ -15,7 +15,8 @@ const ProfileView = ({ session }: { session: DefaultSession }) => {
   return (
     <button onClick={handleClick} className="flex items-end justify-center">
       <h3 className="mr-4 text-lg font-extrabold">
-        <span className="font-normal text-base">Hello,</span> {session.user?.name}
+        <span className="text-base font-normal">Hello,</span>{" "}
+        {session.user?.name}
       </h3>
       <Image
         className="h-10 w-10 rounded-full bg-gray-900"
@@ -25,7 +26,7 @@ const ProfileView = ({ session }: { session: DefaultSession }) => {
         alt="Your profile image"
       />
 
-      {menu ? <ProfileModal session={session}>HELLO TEST TEST TEST</ProfileModal> : ""}
+      <ProfileModal menu={menu} session={session} />
     </button>
   );
 };

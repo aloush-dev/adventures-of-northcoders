@@ -27,8 +27,8 @@ const ProgressTracker = () => {
   ];
 
   return (
-    <motion.div className="flex flex-col items-center justify-between bg-gray-600 py-2 text-gray-100">
-      <div className="flex items-center justify-between">
+    <motion.div className="flex flex-col items-center justify-between bg-gray-600 py-2 text-gray-100 ">
+      <div className="flex items-center justify-between ">
         <button onClick={() => setOpen(!open)} className="p-2 font-semibold">
           Sprint Progress
         </button>
