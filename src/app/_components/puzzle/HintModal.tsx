@@ -16,7 +16,7 @@ const ProfileModal = ({
   useEffect(() => setMounted(true), []);
 
   const modalContent = (
-    <div className="absolute right-0 top-0 mr-2 mt-20 flex flex-col rounded-lg bg-gray-300 p-4 text-gray-900">
+    <div className="absolute mr-2 mt-20 flex flex-col rounded-lg bg-gray-300 p-4 text-gray-900">
       {children}
       <button>Sign Out</button>
     </div>

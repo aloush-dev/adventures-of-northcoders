@@ -7,7 +7,7 @@ export function PuzzleInputBox() {
 
   return (
     <input
-      className="remove-arrow rounded-lg p-2 text-gray-600"
+      className="remove-arrow rounded-lg p-2 bg-gray-200 text-gray-600"
       value={input}
       onChange={(e: ChangeEvent<HTMLInputElement>) => {
         setInput(parseInt(e.target.value));

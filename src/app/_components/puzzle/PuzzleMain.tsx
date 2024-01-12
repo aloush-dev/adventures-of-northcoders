@@ -1,5 +1,7 @@
 import React from "react";
 import { PuzzleInputBox } from "./PuzzleInputBox";
+import { PuzzleSubmitButton } from "./PuzzleSubmitButton";
+import { IoSend } from "react-icons/io5";
 
 export default function PuzzleMain() {
   return (
@@ -26,7 +28,15 @@ export default function PuzzleMain() {
         lobortis elit, quis consequat nisi. Phasellus tincidunt lorem non
         pellentesque bibendum.
       </p>
-      <PuzzleInputBox />
+      <div className="my-8 flex">
+        <PuzzleInputBox />
+        <PuzzleSubmitButton>
+          Submit
+          <div className="px-2 text-xl">
+            <IoSend />
+          </div>
+        </PuzzleSubmitButton>
+      </div>
     </div>
   );
 }
