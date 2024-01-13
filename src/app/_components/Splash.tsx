@@ -18,14 +18,14 @@ export const Splash = () => {
   return (
     <>
       <motion.div
-        initial={{ y: -500 }}
+        initial={{ y: -1500 }}
         animate={{ y: 0 }}
         className="text-6xl font-extrabold"
       >
         Welcome
       </motion.div>
       <motion.div
-        initial={{ y: -1000 }}
+        initial={{ y: -1500 }}
         animate={{ y: 0 }}
         transition={{ delay: 1 }}
         className="text-6xl font-extrabold"
@@ -34,7 +34,7 @@ export const Splash = () => {
       </motion.div>
       <div className="flex">
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 2 }}
           className="text-6xl font-extrabold"
@@ -42,7 +42,7 @@ export const Splash = () => {
           Advent
         </motion.div>
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 6 }}
           className="text-6xl font-extrabold text-[#eb1c24]"
@@ -51,7 +51,7 @@ export const Splash = () => {
         </motion.div>
         {""}
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 3 }}
           className="text-6xl font-extrabold"
@@ -60,7 +60,7 @@ export const Splash = () => {
         </motion.div>
         {""}
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 6 }}
           className="text-6xl font-extrabold text-[#eb1c24]"
@@ -68,7 +68,7 @@ export const Splash = () => {
           {""}North
         </motion.div>
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 4 }}
           className="text-6xl font-extrabold"
@@ -76,7 +76,7 @@ export const Splash = () => {
           code
         </motion.div>
         <motion.div
-          initial={{ y: -1000 }}
+          initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 6 }}
           className="text-6xl font-extrabold text-[#eb1c24]"

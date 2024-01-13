@@ -82,6 +82,7 @@ model UserSolution {
   userId                    Int
   timeOpened                DateTime?
   day                       Int
+  puzzleName                String
   part_1_complete           Boolean   @default(false)
   part_2_complete           Boolean   @default(false)
   part_1_solution           Int?
