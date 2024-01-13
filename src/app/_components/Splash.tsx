@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { PuzzleSubmitButton } from "./puzzle/PuzzleSubmitButton";
 
 export const Splash = () => {
   const [start, setStart] = useState(false);
@@ -83,43 +84,10 @@ export const Splash = () => {
           rs
         </motion.div>
       </div>
+
+      <button className="absolute bottom-0 right-0 m-20 flex items-center justify-center rounded-lg bg-gray-200 p-4 text-2xl font-semibold text-gray-600">
+        Lets go!
+      </button>
     </>
   );
 };
-
-{
-  /* <motion.div
-        initial={{ y: -1000 }}
-        animate={{ y: 0 }}
-        transition={{ delay: 2 }}
-        className="text-6xl font-extrabold"
-      >
-        Advent
-        <motion.span
-          initial={{ opacity: -500 }}
-          animate={{ opacity: 10 }}
-          transition={{ delay: 4 }}
-          className="text-[#eb1c24]"
-        >
-          ures
-        </motion.span>{" "}
-        of{" "}
-        <motion.span
-          initial={{ opacity: -500 }}
-          animate={{ opacity: 10 }}
-          transition={{ delay: 4 }}
-          className="text-[#eb1c24]"
-        >
-          North
-        </motion.span>
-        code
-        <motion.span
-          initial={{ opacity: -500 }}
-          animate={{ opacity: 10 }}
-          transition={{ delay: 4 }}
-          className="text-[#eb1c24]"
-        >
-          rs
-        </motion.span>
-      </motion.div> */
-}
