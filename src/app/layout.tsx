@@ -30,7 +30,9 @@ export default function RootLayout({
           <div id="profile-modal">
             <Header />
             <ProgressTracker />
-            {children}
+            <main className="flex min-h-screen-act flex-col items-center justify-center bg-gray-800 text-white">
+              {children}
+            </main>
           </div>
         </TRPCReactProvider>
       </body>

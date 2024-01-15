@@ -1,9 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 import React from "react";
 
 export const Splash = ({ authed }: { authed: boolean }) => {
+  const loginAndRedirect = async () => {
+    await signIn("github");
+  };
+
   return (
     <>
       <motion.div
@@ -85,6 +90,7 @@ export const Splash = ({ authed }: { authed: boolean }) => {
         </motion.button>
       ) : (
         <motion.button
+          onClick={loginAndRedirect}
           initial={{ y: -1500 }}
           animate={{ y: 0 }}
           transition={{ delay: 7 }}

@@ -7,14 +7,14 @@ export default async function Home() {
 
   if (!session)
     return (
-      <main className="flex min-h-screen-act flex-col items-center justify-center bg-gray-800 text-white">
+      <div>
         <Splash authed={false} />
-      </main>
+      </div>
     );
 
   return (
-    <main className="flex min-h-screen-act flex-col items-center justify-center bg-gray-800 text-white">
+    <div>
       {session?.user.splash ? <Splash authed={true} /> : <ProgressSummary />}
-    </main>
+    </div>
   );
 }

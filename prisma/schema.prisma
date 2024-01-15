@@ -6,9 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL") // uses connection pooling
-
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // uses connection pooling
 }
 
 // Necessary for Next auth
@@ -44,7 +43,7 @@ model User {
   email         String?        @unique
   emailVerified DateTime?
   image         String?
-  splash        Boolean        @default(true)
+  splash        Boolean        @default(false)
   accounts      Account[]
   sessions      Session[]
   UserSolution  UserSolution[]
