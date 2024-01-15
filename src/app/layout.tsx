@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Header } from "./_components/header/Header";
 import ProgressTracker from "./_components/puzzle/ProgressTracker";
+import { Footer } from "./_components/footer/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
             <main className="flex min-h-screen-act flex-col items-center justify-center bg-gray-800 text-white">
               {children}
             </main>
+            <Footer />
           </div>
         </TRPCReactProvider>
       </body>
