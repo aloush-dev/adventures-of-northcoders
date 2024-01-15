@@ -1,20 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
-import { PuzzleSubmitButton } from "./puzzle/PuzzleSubmitButton";
+import React from "react";
 
-export const Splash = () => {
-  const [start, setStart] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setStart(true);
-    }, 4000);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
+export const Splash = ({ authed }: { authed: boolean }) => {
   return (
     <>
       <motion.div
@@ -85,9 +74,25 @@ export const Splash = () => {
         </motion.div>
       </div>
 
-      <button className="absolute bottom-0 right-0 m-20 flex items-center justify-center rounded-lg bg-gray-200 p-4 text-2xl font-semibold text-gray-600">
-        Lets go!
-      </button>
+      {authed ? (
+        <motion.button
+          initial={{ y: -1500 }}
+          animate={{ y: 0 }}
+          transition={{ delay: 7 }}
+          className="absolute bottom-0 right-0 m-20 flex items-center justify-center rounded-lg bg-gray-200 p-4 text-2xl font-semibold text-gray-600"
+        >
+          Lets go!
+        </motion.button>
+      ) : (
+        <motion.button
+          initial={{ y: -1500 }}
+          animate={{ y: 0 }}
+          transition={{ delay: 7 }}
+          className="absolute bottom-0 right-0 m-20 flex items-center justify-center rounded-lg bg-gray-200 p-4 text-2xl font-semibold text-gray-600"
+        >
+          Lets go!
+        </motion.button>
+      )}
     </>
   );
 };
