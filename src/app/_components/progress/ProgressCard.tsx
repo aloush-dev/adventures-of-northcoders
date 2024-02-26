@@ -21,7 +21,7 @@ export const ProgressCard = ({
   };
 }) => {
   return (
-    <div className="rounded-lg bg-gray-200 p-2 text-gray-800">
+    <div className=" rounded-lg border-2 border-transparent bg-gray-200 p-2 text-gray-800 hover:border-2 hover:border-yellow-400">
       <Link href={`/puzzle/${puzzleNameToSlug(solution.puzzleName)}`}>
         <div className="flex justify-center font-bold">
           {solution.puzzleName}

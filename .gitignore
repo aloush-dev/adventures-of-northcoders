@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/puzzle-repo/node_modules
 
 # testing
 /coverage

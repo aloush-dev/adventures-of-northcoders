@@ -1,53 +1,52 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { PuzzleInputBox } from "./PuzzleInputBox";
 import { PuzzleSubmitButton } from "./PuzzleSubmitButton";
 import { IoSend } from "react-icons/io5";
+import { api } from "~/trpc/react";
+import Markdown from "react-markdown";
 
-type PuzzleMainProps = {
-  hints: {
-    keyword: string;
-    smallHint: string;
-    hintLink: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    component: any;
-  }[];
-  puzzleInfo: {
-    id: number;
-    name: string;
-    slug: string;
-    p1Description: string;
-    p2Description: string;
-  };
-};
+interface PuzzleMainProps {
+  puzzleId: string;
+}
 
-export const PuzzleMain = ({ hints, puzzleInfo }: PuzzleMainProps) => {
-  const processTextWithHints = (text: string) => {
-    const words = text.split(/(\b(?:&&\w+&&)\b|\s|\n)/);
+export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleId }) => {
+  const [part1, setPart1] = useState(true);
 
-    return words.map((word, index) => {
-      if (word === "\n") {
-        return <br key={index} />;
-      } else if (word.startsWith("&&") && word.endsWith("&&")) {
-        const keyword = word.slice(2, -2);
-        const hint = hints.find((h) => h.keyword === keyword);
-
-        if (hint) {
-          return <React.Fragment key={index}>{hint.component}</React.Fragment>;
-        }
-      } else {
-        return word;
-      }
-    });
-  };
+  const puzzleDescription = api.puzzle.getPuzzleByid.useQuery({
+    puzzleID: puzzleId.toString(),
+    part: part1 ? "1" : "2",
+  });
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-800 text-white">
       <div className="container flex flex-col px-4 py-16 ">
         <h2 className="py-4 text-4xl font-extrabold tracking-tight">
-          {puzzleInfo.name}
+          PUZZLE TITLE - Part {part1 ? "1" : "2"}
         </h2>
-        <p>{processTextWithHints(puzzleInfo.p1Description)}</p>
 
+        <div className="flex justify-center p-6">
+          <button
+            onClick={() => setPart1(true)}
+            className="mx-2 flex items-center justify-center rounded-lg bg-gray-200 p-2 font-semibold text-gray-600"
+          >
+            Part 1
+          </button>
+          <button
+            onClick={() => setPart1(false)}
+            className="mx-2 flex items-center justify-center rounded-lg bg-gray-200 p-2 font-semibold text-gray-600"
+          >
+            Part 2
+          </button>
+        </div>
+
+        <div className="whitespace-pre-wrap">
+          <Markdown>
+            {puzzleDescription.data ? puzzleDescription.data : "Loading"}
+          </Markdown>
+        </div>
         <div className="my-8 flex">
           <PuzzleInputBox />
           <PuzzleSubmitButton>
