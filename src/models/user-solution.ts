@@ -1,9 +1,9 @@
 import { db } from "~/server/db";
 import { checkSolutionForInput } from "./solutions";
 
-export async function openPuzzleForUser(userId: number, day: number) {
+export async function openPuzzleForUser(userId: number) {
   return db.userSolution.update({
-    where: { userId_day: { userId, day } },
+    where: { userId: userId },
     data: { timeOpened: new Date() },
   });
 }
@@ -26,7 +26,7 @@ export async function validateSolutionForPart({
       : { part_2_complete: true, part_2_solution: attempt };
 
   return db.userSolution.update({
-    where: { userId_day: { userId, day } },
+    where: { userId: userId },
     data,
   });
 }

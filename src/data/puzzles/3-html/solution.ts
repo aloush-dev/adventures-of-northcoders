@@ -21,7 +21,7 @@ export function firstDayPart2Solution(input: string) {
     if (list && list.length > 2) {
       list.sort();
       for (let i = 1; i < list.length - 1; i++) {
-        total += +list[i];
+        total += +list[i]!;
       }
     }
   });

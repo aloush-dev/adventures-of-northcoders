@@ -33,7 +33,7 @@ while (verified.inputs.length < 100) {
 for (let x = 0; x < 100; x++) {
   writeFileSync(
     `${__dirname}/inputs/${x + 1}.txt`,
-    verified.inputs[x],
+    verified.inputs[x] ?? '',
     "utf-8"
   );
 }
