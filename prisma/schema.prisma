@@ -80,7 +80,6 @@ model UserSolution {
   user                      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                    Int
   timeOpened                DateTime?
-  day                       Int
   puzzleName                String
   part_1_complete           Boolean   @default(false)
   part_2_complete           Boolean   @default(false)
@@ -89,6 +88,6 @@ model UserSolution {
   part_1_time_of_completion DateTime?
   part_2_time_of_completion DateTime?
 
-  @@unique([userId, day])
-  @@index([userId, day])
+  @@unique([userId])
+  @@index([userId])
 }

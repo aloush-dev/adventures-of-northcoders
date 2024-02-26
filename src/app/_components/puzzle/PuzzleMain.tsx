@@ -20,11 +20,21 @@ export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleId }) => {
     part: part1 ? "1" : "2",
   });
 
+  const deSlugTitle = (slug: string): string => {
+    const words = slug.split("-");
+
+    const titleCase = words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    return titleCase;
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-800 text-white">
       <div className="container flex flex-col px-4 py-16 ">
         <h2 className="py-4 text-4xl font-extrabold tracking-tight">
-          PUZZLE TITLE - Part {part1 ? "1" : "2"}
+          {deSlugTitle(puzzleId)} - Part {part1 ? "1" : "2"}
         </h2>
 
         <div className="flex justify-center p-6">

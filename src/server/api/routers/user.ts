@@ -1,22 +1,25 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { readDirs, readFile } from "~/utils/puzzleFetching";
 
 export const userRouter = createTRPCRouter({
-  createPuzzleEntry: publicProcedure
-    .input(z.object({ puzzleID: z.string(), part: z.string() }))
-    .query(async ({ input: { puzzleID, part } }) => {
-      const puzzleInfo = await readFile(puzzleID, part);
-
-      return puzzleInfo;
-    }),
   getUserSolution: publicProcedure
-    .input(z.number())
+    .input(z.string())
     .query(async ({ ctx, input }) => {
       const solution = await ctx.db.userSolution.findFirst({
-        where: { id: input },
+        where: { puzzleName: input, userId: Number(ctx.session?.user.id) },
       });
 
       return solution;
+    }),
+  createUserSolution: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.userSolution.create({
+        data: {
+          puzzleName: input,
+          userId: Number(ctx.session?.user.id),
+          timeOpened: new Date(),
+        },
+      });
     }),
 });
