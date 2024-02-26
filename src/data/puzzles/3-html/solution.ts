@@ -12,7 +12,7 @@ export function firstDayPart1Solution(input: string) {
 }
 export function firstDayPart2Solution(input: string) {
   let total = 0;
-  const lines = input.split("\n");
+  // const lines = input.split("\n");
   const inputWithOpeningTagsRemoved = input.replace(/<ul>/g, "");
   const setsOfLists = inputWithOpeningTagsRemoved.split("</ul>");
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PuzzleInputBox } from "./PuzzleInputBox";
 import { PuzzleSubmitButton } from "./PuzzleSubmitButton";
 import { IoSend } from "react-icons/io5";

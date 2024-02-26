@@ -1,4 +1,4 @@
-import { GeneratedSolution, PairOfSolutions } from "../../types";
+import { type GeneratedSolution, type PairOfSolutions } from "../../types";
 import { firstDayPart1Solution, firstDayPart2Solution } from "./solution";
 import { writeFileSync } from "fs";
 function generateInput() {
@@ -40,7 +40,7 @@ const solutionsJson = {
   solutions: verified.solutions.reduce((a, c, i) => {
     a[i + 1] = { part1: c.part1.toString(), part2: c.part2.toString() };
     return a;
-  }, {} as { [key: number]: { [key: string]: string } }),
+  }, {} as Record<number, Record<string, string>>),
 };
 
 writeFileSync(
