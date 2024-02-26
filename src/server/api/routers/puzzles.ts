@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { readFile } from "~/utils/puzzleFetching";
+import { readDirs, readFile } from "~/utils/puzzleFetching";
 
 export const puzzleRouter = createTRPCRouter({
   getPuzzleByid: publicProcedure
@@ -10,4 +10,9 @@ export const puzzleRouter = createTRPCRouter({
 
       return puzzleInfo;
     }),
+  getAllPuzzles: publicProcedure.query(async () => {
+    const allPuzzles = await readDirs();
+
+    return allPuzzles;
+  }),
 });
