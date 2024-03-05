@@ -2,7 +2,7 @@
 
 import React, { type ChangeEvent, useState } from "react";
 
-export function PuzzleInputBox() {
+export const PuzzleInputBox = ({ part }: { part: number }) => {
   const [input, setInput] = useState<string>("");
 
   return (
@@ -15,4 +15,4 @@ export function PuzzleInputBox() {
       type="text"
     ></input>
   );
-}
+};

@@ -1,28 +1,24 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // uses connection pooling
+  url      = env("DATABASE_URL")
 }
 
-// Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
   userId            Int
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // @db.Text
-  access_token      String? // @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // @db.Text
+  id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,9 +41,9 @@ model User {
   image         String?
   splash        Boolean        @default(false)
   accounts      Account[]
+  puzzle        Puzzle[]
   sessions      Session[]
   UserSolution  UserSolution[]
-  puzzle        Puzzle[]
 }
 
 model VerificationToken {
@@ -58,15 +54,13 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// PuzzleS AND SHIT
-
 model Input {
-  puzzleCollection   String
   day                Int
   id                 Int
   input              String
   answerPart1        String
   answerPart2        String
+  puzzleCollection   String
   puzzlePuzzleNumber Int
   puzzle             Puzzle         @relation(fields: [puzzleCollection, puzzlePuzzleNumber], references: [collection, puzzleNumber])
   UserSolution       UserSolution[]
@@ -77,7 +71,6 @@ model Input {
 
 model UserSolution {
   id                        Int       @id @default(autoincrement())
-  user                      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                    Int
   timeOpened                DateTime?
   part_1_complete           Boolean   @default(false)
@@ -86,10 +79,11 @@ model UserSolution {
   part_2_solution           Int?
   part_1_time_of_completion DateTime?
   part_2_time_of_completion DateTime?
+  inputId                   Int
   puzzleCollection          String
   puzzleNumber              Int
-  inputId                   Int
   input                     Input     @relation(fields: [puzzleNumber, puzzleCollection, inputId], references: [puzzlePuzzleNumber, puzzleCollection, id])
+  user                      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, puzzleCollection, puzzleNumber])
   @@index([userId])
@@ -97,23 +91,21 @@ model UserSolution {
 
 model Puzzle {
   collection        String
-  puzzleNumber      Int
-  part1Instructions String
-  part2Instructions String
-  Input             Input[]
-  openedCount       Int         @default(0)
   completedCount    Int         @default(0)
   createdAt         DateTime    @default(now())
   createdBy         Int?
-  UserCreatedBy     User?       @relation(fields: [createdBy], references: [id])
+  openedCount       Int         @default(0)
+  part1Instructions String
+  part2Instructions String
+  puzzleNumber      Int
+  Input             Input[]
   Collections       Collections @relation(fields: [collection], references: [collectionName])
+  UserCreatedBy     User?       @relation(fields: [createdBy], references: [id])
 
   @@unique([collection, puzzleNumber])
 }
 
 model Collections {
-  collectionName String   @id
+  collectionName String   @id @unique
   Puzzle         Puzzle[]
-
-  @@unique([collectionName])
 }

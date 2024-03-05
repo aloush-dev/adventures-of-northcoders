@@ -1,8 +1,10 @@
+import { api } from "~/trpc/server";
 import { ProgressSummary } from "../_components/progress/ProgressSummary";
-
-const collections = ["Intro Week", "Community"];
+import { deSlugTitle } from "~/utils/utils";
 
 const ProgressPage = async () => {
+  const collections = await api.puzzle.getPuzzleCollections.query();
+
   return (
     <>
       <div className="flex">
@@ -12,7 +14,7 @@ const ProgressPage = async () => {
               className="m-10 flex items-center justify-center rounded-lg bg-gray-200 p-4 text-2xl font-semibold text-gray-600"
               key={index}
             >
-              {collection}
+              {deSlugTitle(collection.collectionName)}
             </button>
           );
         })}

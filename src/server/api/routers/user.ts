@@ -1,32 +1,27 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createPuzzleProgressForUser,
+  getSpecificPuzzleProgressForUser,
+} from "~/models/puzzles.model";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
-  getUserSolution: publicProcedure
+  getUserSolution: protectedProcedure
     .input(z.object({ collection: z.string(), number: z.number() }))
     .query(async ({ ctx, input: { collection, number } }) => {
-      const solution = await ctx.db.userSolution.findFirst({
-        where: {
-          puzzleCollection: collection,
-          puzzleNumber: number,
-          userId: Number(ctx.session?.user.id),
-        },
-      });
-
-      return solution;
+      return await getSpecificPuzzleProgressForUser(
+        Number(ctx.session?.user.id),
+        collection,
+        number,
+      );
     }),
-  createUserSolution: publicProcedure
+  createUserSolution: protectedProcedure
     .input(z.object({ collection: z.string(), number: z.number() }))
     .mutation(async ({ ctx, input: { collection, number } }) => {
-      return await ctx.db.userSolution.create({
-        data: {
-          puzzleCollection: collection,
-          puzzleNumber: number,
-          puzzleName: "",
-          inputId: Number(ctx.session?.user.id),
-          userId: Number(ctx.session?.user.id),
-          timeOpened: new Date(),
-        },
-      });
+      return await createPuzzleProgressForUser(
+        Number(ctx.session?.user.id),
+        collection,
+        number,
+      );
     }),
 });

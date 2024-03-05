@@ -12,6 +12,13 @@ export default async function PuzzlePage({
     puzzleNumber: Number(params.puzzleNumber),
   });
 
+  const userSolution = await api.user.getUserSolution.query({
+    number: Number(params.puzzleNumber),
+    collection: params.puzzleCollection,
+  });
+
+  console.log(userSolution, "HEREEEEEEEEEEEEEEEEEEE");
+
   if (!puzzleInfo) return <p>loading...</p>;
 
   return <PuzzleMain puzzleInfo={puzzleInfo} />;

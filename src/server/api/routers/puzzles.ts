@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { getAllCollections } from "~/models/collections.model";
+import { getAllPuzzleInfo } from "~/models/puzzles.model";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-import { readDirs, readFile } from "~/utils/puzzleFetching";
 
 export const puzzleRouter = createTRPCRouter({
   getSpecificPuzzle: publicProcedure
@@ -17,9 +18,10 @@ export const puzzleRouter = createTRPCRouter({
 
       return puzzleInfo;
     }),
-  getAllPuzzles: publicProcedure.query(async ({ ctx }) => {
-    const allPuzzles = await ctx.db.puzzle.findMany();
-
-    return allPuzzles;
+  getAllPuzzles: publicProcedure.query(async () => {
+    return await getAllPuzzleInfo();
+  }),
+  getPuzzleCollections: publicProcedure.query(async () => {
+    return await getAllCollections();
   }),
 });

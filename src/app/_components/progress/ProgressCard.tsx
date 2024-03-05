@@ -3,8 +3,9 @@
 import Link from "next/link";
 import React from "react";
 import { FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
+import { type Puzzle } from "types/types";
 import { api } from "~/trpc/react";
-import { type Puzzle } from "./ProgressSummary";
+import { deSlugTitle } from "~/utils/utils";
 
 export const ProgressCard = ({ puzzle }: { puzzle: Puzzle }) => {
   const emptyUserSolution = {
@@ -41,16 +42,6 @@ export const ProgressCard = ({ puzzle }: { puzzle: Puzzle }) => {
     }
   };
 
-  const deSlugTitle = (slug: string): string => {
-    const words = slug.split("-");
-
-    const titleCase = words
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-
-    return titleCase;
-  };
-
   return (
     <button
       onClick={handleClick}
@@ -60,7 +51,7 @@ export const ProgressCard = ({ puzzle }: { puzzle: Puzzle }) => {
         href={`/puzzle/${userData.puzzleCollection}/${userData.puzzleNumber}`}
       >
         <div className="flex justify-center font-bold">
-          {deSlugTitle(userData.puzzleCollection)}
+          {deSlugTitle(userData.puzzleCollection || "")}
         </div>
         <div>Puzzle No.{userData.puzzleNumber}</div>
         <div className="flex justify-between">

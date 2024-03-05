@@ -5,6 +5,10 @@ export async function getAllPuzzlesProgressForUser(userId: number) {
   return db.userSolution.findMany({ where: { userId } });
 }
 
+export async function getAllPuzzleInfo() {
+  return await db.puzzle.findMany();
+}
+
 export async function getSpecificPuzzleProgressForUser(
   userId: number,
   puzzleCollection: string,
@@ -28,6 +32,7 @@ export async function createPuzzleProgressForUser(
       puzzleCollection,
       puzzleNumber,
       inputId,
+      timeOpened: new Date(),
     },
   });
 }

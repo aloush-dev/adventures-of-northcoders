@@ -15,7 +15,8 @@ export async function Header() {
             A<span className="text-[#eb1c24]">o</span>N
           </h1>
         </Link>
-        <Link href="/progress">My Progress</Link>
+        {session ? <Link href="/progress">My Progress</Link> : ""}
+
         <Link href="/progress">Create Your Own Puzzle</Link>
       </div>
       <div className="h-auto w-auto">

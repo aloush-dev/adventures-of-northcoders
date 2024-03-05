@@ -63,7 +63,7 @@ export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleInfo }) => {
           </Markdown>
         </div>
         <div className="my-8 flex">
-          <PuzzleInputBox />
+          <PuzzleInputBox part={part1 ? 1 : 2} />
           <PuzzleSubmitButton>
             Submit
             <div className="px-2 text-xl">
