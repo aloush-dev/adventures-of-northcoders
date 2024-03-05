@@ -80,7 +80,6 @@ model UserSolution {
   user                      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                    Int
   timeOpened                DateTime?
-  puzzleName                String
   part_1_complete           Boolean   @default(false)
   part_2_complete           Boolean   @default(false)
   part_1_solution           Int?
@@ -89,7 +88,7 @@ model UserSolution {
   part_2_time_of_completion DateTime?
   puzzleCollection          String
   puzzleNumber              Int
-  inputId Int
+  inputId                   Int
   input                     Input     @relation(fields: [puzzleNumber, puzzleCollection, inputId], references: [puzzlePuzzleNumber, puzzleCollection, id])
 
   @@unique([userId, puzzleCollection, puzzleNumber])
@@ -102,11 +101,19 @@ model Puzzle {
   part1Instructions String
   part2Instructions String
   Input             Input[]
-  openedCount       Int      @default(0)
-  completedCount    Int      @default(0)
-  createdAt         DateTime @default(now())
+  openedCount       Int         @default(0)
+  completedCount    Int         @default(0)
+  createdAt         DateTime    @default(now())
   createdBy         Int?
-  UserCreatedBy     User?    @relation(fields: [createdBy], references: [id])
+  UserCreatedBy     User?       @relation(fields: [createdBy], references: [id])
+  Collections       Collections @relation(fields: [collection], references: [collectionName])
 
   @@unique([collection, puzzleNumber])
+}
+
+model Collections {
+  collectionName String   @id
+  Puzzle         Puzzle[]
+
+  @@unique([collectionName])
 }
