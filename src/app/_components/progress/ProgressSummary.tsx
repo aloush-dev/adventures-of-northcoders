@@ -20,9 +20,7 @@ export const ProgressSummary = async () => {
   return (
     <div className="grid grid-flow-row grid-cols-4 justify-items-center gap-4">
       {puzzles?.map((puzzle, index) => {
-        return (
-          <ProgressCard puzzle={puzzle} key={index} />
-        );
+        return <ProgressCard puzzle={puzzle} key={index} />;
       })}
     </div>
   );

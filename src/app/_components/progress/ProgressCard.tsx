@@ -56,9 +56,11 @@ export const ProgressCard = ({ puzzle }: { puzzle: Puzzle }) => {
       onClick={handleClick}
       className=" rounded-lg border-2 border-transparent bg-gray-200 p-2 text-gray-800 hover:border-2 hover:border-yellow-400"
     >
-      <Link href={`/puzzle/${userData.puzzleCollection}/userData.puzzleNumber`}>
+      <Link
+        href={`/puzzle/${userData.puzzleCollection}/${userData.puzzleNumber}`}
+      >
         <div className="flex justify-center font-bold">
-          {deSlugTitle(userData.puzzleCollection as string)}
+          {deSlugTitle(userData.puzzleCollection)}
         </div>
         <div>Puzzle No.{userData.puzzleNumber}</div>
         <div className="flex justify-between">

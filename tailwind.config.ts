@@ -9,7 +9,7 @@ export default {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       minHeight: {
-        "screen-act": `calc(100vh - 184px)`,
+        "screen-act": `calc(100vh - 124px)`,
       },
     },
   },
