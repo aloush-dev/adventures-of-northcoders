@@ -18,3 +18,13 @@ export default async function Home() {
     </div>
   );
 }
+
+// const puzzle = await db.user.findFirst({
+//   where: { id: +session.user.id },
+//   select: {
+//     UserSolution: {
+//       where: { puzzleCollection: "intro-week-beta", puzzleNumber: 1 },
+//       select: { input: true },
+//     },
+//   },
+// });

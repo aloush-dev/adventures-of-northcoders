@@ -9,11 +9,15 @@ export async function Header() {
 
   return (
     <header className="flex items-center justify-between bg-gray-700 p-4 text-white">
-      <Link href="/">
-        <h1 className="text-3xl font-extrabold tracking-tight ">
-          A<span className="text-[#eb1c24]">o</span>N
-        </h1>
-      </Link>
+      <div className="flex items-center gap-4">
+        <Link href="/">
+          <h1 className="text-3xl font-extrabold tracking-tight ">
+            A<span className="text-[#eb1c24]">o</span>N
+          </h1>
+        </Link>
+        <Link href="/progress">My Progress</Link>
+        <Link href="/progress">Create Your Own Puzzle</Link>
+      </div>
       <div className="h-auto w-auto">
         {session ? <ProfileView session={session} /> : <SignInButton />}
       </div>

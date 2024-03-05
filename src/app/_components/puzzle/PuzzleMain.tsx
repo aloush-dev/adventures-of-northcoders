@@ -5,20 +5,23 @@ import React, { useState } from "react";
 import { PuzzleInputBox } from "./PuzzleInputBox";
 import { PuzzleSubmitButton } from "./PuzzleSubmitButton";
 import { IoSend } from "react-icons/io5";
-import { api } from "~/trpc/react";
 import Markdown from "react-markdown";
 
 interface PuzzleMainProps {
-  puzzleId: string;
+  puzzleInfo: {
+    collection: string;
+    puzzleNumber: number;
+    part1Instructions: string;
+    part2Instructions: string;
+    openedCount: number;
+    completedCount: number;
+    createdAt: Date;
+    createdBy: number | null;
+  };
 }
 
-export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleId }) => {
+export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleInfo }) => {
   const [part1, setPart1] = useState(true);
-
-  const puzzleDescription = api.puzzle.getPuzzleByid.useQuery({
-    puzzleID: puzzleId.toString(),
-    part: part1 ? "1" : "2",
-  });
 
   const deSlugTitle = (slug: string): string => {
     const words = slug.split("-");
@@ -34,7 +37,7 @@ export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleId }) => {
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-800 text-white">
       <div className="container flex flex-col px-4 py-16 ">
         <h2 className="py-4 text-4xl font-extrabold tracking-tight">
-          {deSlugTitle(puzzleId)} - Part {part1 ? "1" : "2"}
+          {deSlugTitle(puzzleInfo.collection)} - Part {part1 ? "1" : "2"}
         </h2>
 
         <div className="flex justify-center p-6">
@@ -54,7 +57,9 @@ export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleId }) => {
 
         <div className="whitespace-pre-wrap">
           <Markdown>
-            {puzzleDescription.data ? puzzleDescription.data : "Loading"}
+            {part1
+              ? puzzleInfo.part1Instructions
+              : puzzleInfo.part2Instructions}
           </Markdown>
         </div>
         <div className="my-8 flex">

@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   UserSolution  UserSolution[]
+  puzzle        Puzzle[]
 }
 
 model VerificationToken {
@@ -57,21 +58,20 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// PUZZELS AND SHIT
-
-model Puzzle {
-  dayNumber Int    @id
-  part1     String
-  part2     String
-}
+// PuzzleS AND SHIT
 
 model Input {
-  day    Int
-  id     Int
-  input  String
-  answer Int
+  puzzleCollection   String
+  day                Int
+  id                 Int
+  input              String
+  answerPart1        String
+  answerPart2        String
+  puzzlePuzzleNumber Int
+  puzzle             Puzzle         @relation(fields: [puzzleCollection, puzzlePuzzleNumber], references: [collection, puzzleNumber])
+  UserSolution       UserSolution[]
 
-  @@unique([day, id])
+  @@unique([puzzleCollection, puzzlePuzzleNumber, id])
   @@index([day])
 }
 
@@ -87,7 +87,26 @@ model UserSolution {
   part_2_solution           Int?
   part_1_time_of_completion DateTime?
   part_2_time_of_completion DateTime?
+  puzzleCollection          String
+  puzzleNumber              Int
+  inputId Int
+  input                     Input     @relation(fields: [puzzleNumber, puzzleCollection, inputId], references: [puzzlePuzzleNumber, puzzleCollection, id])
 
-  @@unique([userId])
+  @@unique([userId, puzzleCollection, puzzleNumber])
   @@index([userId])
+}
+
+model Puzzle {
+  collection        String
+  puzzleNumber      Int
+  part1Instructions String
+  part2Instructions String
+  Input             Input[]
+  openedCount       Int      @default(0)
+  completedCount    Int      @default(0)
+  createdAt         DateTime @default(now())
+  createdBy         Int?
+  UserCreatedBy     User?    @relation(fields: [createdBy], references: [id])
+
+  @@unique([collection, puzzleNumber])
 }

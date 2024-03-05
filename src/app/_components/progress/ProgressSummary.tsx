@@ -1,17 +1,28 @@
-"use client";
-
-import { api } from "~/trpc/react";
+import { api } from "~/trpc/server";
 import { ProgressCard } from "./ProgressCard";
 
-export const ProgressSummary = () => {
-  const { data } = api.puzzle.getAllPuzzles.useQuery();
+export type Puzzle = {
+  collection: string;
+  puzzleNumber: number;
+  part1Instructions: string;
+  part2Instructions: string;
+  openedCount: number;
+  completedCount: number;
+  createdAt: Date;
+  createdBy: number | null;
+};
 
-  if (!data) return <p>loading....</p>;
+export const ProgressSummary = async () => {
+  const puzzles = await api.puzzle.getAllPuzzles.query();
+
+  if (!puzzles) return <p>loading....</p>;
 
   return (
     <div className="grid grid-flow-row grid-cols-4 justify-items-center gap-4">
-      {data?.map((puzzleName, index) => {
-        return <ProgressCard puzzleName={puzzleName} key={index} />;
+      {puzzles?.map((puzzle, index) => {
+        return (
+          <ProgressCard puzzle={puzzle} key={index} />
+        );
       })}
     </div>
   );
