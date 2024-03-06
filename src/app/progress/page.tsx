@@ -1,9 +1,10 @@
-import { api } from "~/trpc/server";
 import { ProgressSummary } from "../_components/progress/ProgressSummary";
 import { deSlugTitle } from "~/utils/utils";
+import { getAllCollections } from "~/models/collections.model";
 
 const ProgressPage = async () => {
-  const collections = await api.puzzle.getPuzzleCollections.query();
+  const collections = await getAllCollections();
+  console.log(collections);
 
   return (
     <>

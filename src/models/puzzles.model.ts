@@ -1,5 +1,4 @@
 import { db } from "~/server/db";
-import { assignRandomInputId } from "./utils/puzzleInputs";
 
 export async function getAllPuzzlesProgressForUser(userId: number) {
   return db.userSolution.findMany({ where: { userId } });
@@ -15,24 +14,28 @@ export async function getSpecificPuzzleProgressForUser(
   puzzleNumber: number,
 ) {
   return db.userSolution.findFirst({
-    where: { userId, puzzleCollection, puzzleNumber },
+    where: { userId, puzzle: { collection: puzzleCollection, puzzleNumber } },
     include: { input: { select: { puzzle: true } } },
   });
 }
 
 export async function createPuzzleProgressForUser(
   userId: number,
-  puzzleCollection: string,
-  puzzleNumber: number,
+  puzzleId: string,
 ) {
-  const inputId = assignRandomInputId(userId);
+  const inputs = await db.input.findMany({
+    where: { puzzleId },
+    select: { id: true },
+  });
+  const inputForUser = inputs[Math.ceil(Math.random() * inputs.length)];
+  if (!inputForUser) {
+    throw new Error("No inputs found for this puzzle");
+  }
   return db.userSolution.create({
     data: {
+      inputId: inputForUser.id,
       userId,
-      puzzleCollection,
-      puzzleNumber,
-      inputId,
-      timeOpened: new Date(),
+      puzzleId,
     },
   });
 }
