@@ -1,5 +1,5 @@
 import { db } from "~/server/db";
 
 export async function getAllCollections() {
-  return db.collections.findMany();
+  return db.collection.findMany();
 }

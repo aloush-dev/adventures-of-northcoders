@@ -13,6 +13,12 @@ const ProfileModal = ({
   menu: boolean;
   session: DefaultSession;
 }) => {
+  if (
+    typeof global.window !== "undefined" ||
+    typeof global.document !== "undefined"
+  ) {
+    return null;
+  }
   const modalContent = (
     <AnimatePresence>
       {menu && (

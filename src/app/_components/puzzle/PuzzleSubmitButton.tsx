@@ -1,12 +1,15 @@
-import React from "react";
+import React, { type FC, type PropsWithChildren } from "react";
 
-export const PuzzleSubmitButton = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const PuzzleSubmitButton: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <button className="flex items-center justify-center rounded-lg font-semibold bg-gray-200 mx-2 p-2 text-gray-600">
+    <button
+      className={`
+    mx-2 flex items-center justify-center 
+    rounded-lg bg-gray-200 p-2 
+    font-semibold text-gray-600
+    `}
+      type="submit"
+    >
       {children}
     </button>
   );

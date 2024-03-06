@@ -55,55 +55,55 @@ model VerificationToken {
 }
 
 model Input {
-  id                 String         @id @default(cuid())
-  puzzleId          String
-  input              String
-  answerPart1        String
-  answerPart2        String
-  puzzlePuzzleNumber Int
-  puzzle             Puzzle         @relation(fields: [puzzleId], references: [id])
-  UserSolution       UserSolution[]
+  id           String         @id @default(cuid())
+  input        String
+  answerPart1  String
+  answerPart2  String
+  puzzleId     String
+  puzzle       Puzzle         @relation(fields: [puzzleId], references: [id])
+  UserSolution UserSolution[]
 }
 
 model UserSolution {
-  id                        Int       @id @default(autoincrement())
-  timeOpened                DateTime?
+  id                        Int       @id @unique @default(autoincrement())
+  userId                    Int
+  timeOpened                DateTime @default(now())
   part_1_complete           Boolean   @default(false)
   part_2_complete           Boolean   @default(false)
-  part_1_solution           Int?
-  part_2_solution           Int?
   part_1_time_of_completion DateTime?
   part_2_time_of_completion DateTime?
-  userId                    Int
-  User                      User      @relation(fields: [userId], references: [id])
+  part_1_solution           Int?
+  part_2_solution           Int?
   inputId                   String
-  input                     Input     @relation(fields: [inputId], references: [id])
   puzzleId                  String
+  input                     Input     @relation(fields: [inputId], references: [id])
   puzzle                    Puzzle    @relation(fields: [puzzleId], references: [id])
+  User                      User      @relation(fields: [userId], references: [id])
 
-  @@unique([id])
   @@index([userId])
+  @@unique([userId, inputId])
 }
 
 model Puzzle {
-  id                String         @id @default(cuid())
   collection        String
+  puzzleNumber      Int
+  part1Instructions String
+  part2Instructions String
+  openedCount       Int            @default(0)
   completedCount    Int            @default(0)
   createdAt         DateTime       @default(now())
   createdBy         Int?
-  openedCount       Int            @default(0)
-  part1Instructions String
-  part2Instructions String
-  puzzleNumber      Int
+  id                String         @id @default(cuid())
+  puzzleName        String
   Input             Input[]
-  Collections       Collections    @relation(fields: [collection], references: [collectionName])
+  Collections       Collection     @relation(fields: [collection], references: [collectionName])
   UserCreatedBy     User?          @relation(fields: [createdBy], references: [id])
   UserSolution      UserSolution[]
 
   @@unique([collection, puzzleNumber])
 }
 
-model Collections {
+model Collection {
   collectionName String   @id @unique
   Puzzle         Puzzle[]
 }

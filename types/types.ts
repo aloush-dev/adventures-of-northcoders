@@ -1,12 +1,14 @@
 export type Puzzle = {
+  UserSolution: {
+    part_1_complete: boolean;
+    part_2_complete: boolean;
+    timeOpened: Date;
+  }[];
+} & {
   collection: string;
   puzzleNumber: number;
-  part1Instructions: string;
-  part2Instructions: string;
   openedCount: number;
-  completedCount: number;
-  createdAt: Date;
-  createdBy: number | null;
+  puzzleName: string;
 };
 
 export type EmptyUserSolution = {
