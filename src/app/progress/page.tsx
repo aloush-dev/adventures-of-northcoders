@@ -4,7 +4,6 @@ import { getAllCollections } from "~/models/collections.model";
 
 const ProgressPage = async () => {
   const collections = await getAllCollections();
-  console.log(collections);
 
   return (
     <>

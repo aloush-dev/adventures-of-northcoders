@@ -1,25 +1,34 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { api } from "~/trpc/server";
 import { PuzzleMain } from "../../../_components/puzzle/PuzzleMain";
+import {
+  createPuzzleProgressForUser,
+  getSpecificPuzzleProgressForUser,
+} from "~/models/puzzles.model";
+import { authOptions } from "~/server/auth";
+import { getServerSession } from "next-auth";
 
 export default async function PuzzlePage({
   params,
 }: {
-  params: { puzzleCollection: string; puzzleNumber: number };
+  params: { puzzleCollection: string; puzzleNumber: string };
 }) {
-  const puzzleInfo = await api.puzzle.getSpecificPuzzle.query({
-    collection: params.puzzleCollection,
-    puzzleNumber: Number(params.puzzleNumber),
-  });
+  const { puzzleCollection, puzzleNumber } = params;
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
+  if (!userId) return <p>Error</p>;
+  let puzzleWithUserProgress = await getSpecificPuzzleProgressForUser(
+    +userId,
+    puzzleCollection,
+    +puzzleNumber,
+  );
+  if (!puzzleWithUserProgress) {
+    await createPuzzleProgressForUser(+userId, puzzleCollection, +puzzleNumber);
+    puzzleWithUserProgress = await getSpecificPuzzleProgressForUser(
+      +userId,
+      puzzleCollection,
+      +puzzleNumber,
+    );
+  }
+  if (!puzzleWithUserProgress) return <p>Error</p>;
 
-  const userSolution = await api.user.getUserSolution.query({
-    number: Number(params.puzzleNumber),
-    collection: params.puzzleCollection,
-  });
-
-  console.log(userSolution, "HEREEEEEEEEEEEEEEEEEEE");
-
-  if (!puzzleInfo) return <p>loading...</p>;
-
-  return <PuzzleMain puzzleInfo={puzzleInfo} />;
+  return <PuzzleMain puzzleInfo={puzzleWithUserProgress} />;
 }

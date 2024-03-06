@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <div id="profile-modal">
-            {/* <Header /> */}
+            <Header />
             {/* <ProgressTracker /> */}
             <main className="flex min-h-screen-act flex-col items-center justify-center bg-gray-800 text-white">
               {children}

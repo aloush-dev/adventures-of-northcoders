@@ -67,7 +67,7 @@ model Input {
 model UserSolution {
   id                        Int       @id @unique @default(autoincrement())
   userId                    Int
-  timeOpened                DateTime?
+  timeOpened                DateTime @default(now())
   part_1_complete           Boolean   @default(false)
   part_2_complete           Boolean   @default(false)
   part_1_time_of_completion DateTime?
@@ -81,6 +81,7 @@ model UserSolution {
   User                      User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
+  @@unique([userId, inputId])
 }
 
 model Puzzle {

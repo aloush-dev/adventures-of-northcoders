@@ -1,11 +1,14 @@
-import { api } from "~/trpc/server";
+import { getAllPuzzlesProgressForUser } from "~/models/puzzles.model";
 import { ProgressCard } from "./ProgressCard";
-
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "~/server/auth";
 
 export const ProgressSummary = async () => {
-  const puzzles = await api.puzzle.getAllPuzzles.query();
+  const session = await getServerSession(authOptions);
+  if (!session) return <p>Error</p>;
+  const id = session.user.id;
 
+  const puzzles = await getAllPuzzlesProgressForUser(+id, "intro-week-beta");
   if (!puzzles) return <p>loading....</p>;
 
   return (
