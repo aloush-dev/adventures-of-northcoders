@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { db } from "~/server/db";
 
 export async function getAllPuzzlesProgressForUser(
