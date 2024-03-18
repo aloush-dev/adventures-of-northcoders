@@ -8,17 +8,14 @@ type ProgressCardProps = {
   puzzle: Puzzle;
 };
 export const ProgressCard: FC<ProgressCardProps> = async ({ puzzle }) => {
-  const { collection, puzzleNumber } = puzzle;
+  const { collection, puzzleName, puzzleNumber } = puzzle;
 
   return (
     <Link
       className=" rounded-lg border-2 border-transparent bg-gray-200 p-2 text-gray-800 hover:border-2 hover:border-yellow-400"
       href={`/puzzle/${collection}/${puzzleNumber}`}
     >
-      <div className="flex justify-center font-bold">
-        {deSlugTitle(collection || "")}
-      </div>
-      <div>Puzzle No.{puzzleNumber}</div>
+      <div>{deSlugTitle(puzzleName).replace(" ", ". ")}</div>
       <div className="flex justify-between">
         <div className="m-2 flex flex-col items-center justify-center">
           Part 1

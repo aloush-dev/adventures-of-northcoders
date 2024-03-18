@@ -1,7 +1,11 @@
 import { z } from "zod";
 import { getAllCollections } from "~/models/collections.model";
-import { getAllPuzzleInfo } from "~/models/puzzles.model";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { checkSolution, getAllPuzzleInfo } from "~/models/puzzles.model";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 export const puzzleRouter = createTRPCRouter({
   getSpecificPuzzle: publicProcedure
@@ -24,4 +28,25 @@ export const puzzleRouter = createTRPCRouter({
   getPuzzleCollections: publicProcedure.query(async () => {
     return await getAllCollections();
   }),
+  checkSolution: protectedProcedure
+    .input(
+      z.object({
+        inputId: z.string(),
+        solution: z.string(),
+        part: z.number(),
+      }),
+    )
+    .mutation(({ input, ctx }) => {
+      const { session } = ctx;
+      if (!session) {
+        throw new Error("Unauthorized");
+      }
+      const { id } = session.user;
+      return checkSolution(
+        +id,
+        input.solution,
+        input.inputId,
+        +input.part as 1 | 2,
+      );
+    }),
 });
