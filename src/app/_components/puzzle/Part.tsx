@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type SetStateAction, type Dispatch } from "react";
 import Markdown from "react-markdown";
 import SolutionInputForm from "./SolutionInputForm";
 
@@ -9,6 +9,8 @@ type PartProps = {
   inputId: string;
   puzzleCollection: string;
   puzzleNumber: number;
+  setShowConfetti: Dispatch<SetStateAction<boolean>>
+
 };
 
 const Part: React.FC<PartProps> = ({
@@ -18,6 +20,7 @@ const Part: React.FC<PartProps> = ({
   inputId,
   puzzleCollection,
   puzzleNumber,
+  setShowConfetti
 }) => {
   return (
     <>
@@ -25,15 +28,20 @@ const Part: React.FC<PartProps> = ({
         <Markdown>{instructions}</Markdown>
       </div>
       {solution ? (
-        <p>
-          Part {partNumber} complete: your solution was {solution}
-        </p>
+        <div className="my-2 flex flex-col bg-slate-100 text-xl text-slate-700 rounded-lg p-2 w-fit">
+          Congratulations!
+          <span>
+            Part {partNumber} complete: your solution was{" "}
+            <span className="text-xl font-extrabold">{solution}</span>
+          </span>
+        </div>
       ) : (
         <SolutionInputForm
           inputId={inputId}
           partNumber={partNumber}
           puzzleCollection={puzzleCollection}
           puzzleNumber={puzzleNumber}
+          setShowConfetti={setShowConfetti}
         />
       )}
     </>

@@ -5,6 +5,7 @@ import Part from "./Part";
 import GetInput from "./GetInput";
 import { deSlugTitle } from "~/utils/utils";
 import MainButton from "../ui/MainButton";
+import Confetti from "react-confetti";
 
 interface PuzzleMainProps {
   puzzleInfo: {
@@ -35,9 +36,12 @@ interface PuzzleMainProps {
 
 export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleInfo }) => {
   const [part2Selected, setPart2Selected] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-800 text-white">
+      {showConfetti && <Confetti />}
+
       <div className="container flex flex-col px-4 py-16 ">
         <div className="flex flex-col items-center justify-center">
           <div className="flex justify-center gap-2">
@@ -87,11 +91,13 @@ export const PuzzleMain: React.FC<PuzzleMainProps> = ({ puzzleInfo }) => {
                 }
                 puzzleCollection={puzzleInfo.puzzle.collection}
                 puzzleNumber={puzzleInfo.puzzle.puzzleNumber}
+                setShowConfetti={setShowConfetti}
               />
             </div>
           ) : (
             <div>
               <Part
+                setShowConfetti={setShowConfetti}
                 instructions={puzzleInfo.puzzle.part1Instructions}
                 partNumber={1}
                 inputId={puzzleInfo.input.id}

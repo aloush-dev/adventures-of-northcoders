@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { type Dispatch, type SetStateAction, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { api } from "~/trpc/react";
 
@@ -9,23 +9,32 @@ type SolutionInputFormProps = {
   inputId: string;
   puzzleCollection: string;
   puzzleNumber: number;
+  setShowConfetti: Dispatch<SetStateAction<boolean>>;
 };
 
 const SolutionInputForm: React.FC<SolutionInputFormProps> = ({
   partNumber,
   inputId,
+  setShowConfetti,
 }) => {
   const router = useRouter();
   const [attempt, setAttempt] = useState("");
   const [check, setCheck] = useState<"HIGH" | "LOW" | null>(null);
   const [inputBoxValue, setInputBoxValue] = useState("");
+
   const { mutate } = api.puzzle.checkSolution.useMutation({
     onSuccess: (data, { solution }) => {
       if (data === "CORRECT") {
+        setShowConfetti(true);
         setCheck(null);
         setAttempt("");
         setInputBoxValue("");
         router.refresh();
+
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 5000);
+
         return;
       }
       setCheck(data);
@@ -51,7 +60,7 @@ const SolutionInputForm: React.FC<SolutionInputFormProps> = ({
       <div className="my-2">
         {check && (
           <span>
-            Youre answer:{attempt} is too {check}
+            Your answer:{attempt} is too {check}
           </span>
         )}
       </div>
