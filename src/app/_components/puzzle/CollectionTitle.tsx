@@ -1,3 +1,5 @@
+'use client'
+
 import React, { type Dispatch, type SetStateAction } from "react";
 import { deSlugTitle } from "~/utils/utils";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
