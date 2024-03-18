@@ -56,7 +56,9 @@ export async function createPuzzleProgressForUser(
     where: { puzzleId: id },
     select: { id: true },
   });
-  const inputForUser = inputs[Math.ceil(Math.random() * inputs.length)];
+  console.log(inputs.length, "<<< inputs");
+
+  const inputForUser = inputs[Math.floor(Math.random() * inputs.length)];
   if (!inputForUser) {
     throw new Error("No inputs found for this puzzle");
   }
@@ -75,7 +77,6 @@ export async function checkSolution(
   inputId: string,
   part: 1 | 2,
 ): Promise<"HIGH" | "LOW" | "CORRECT"> {
-
   const input = await db.input.findFirst({
     where: { id: inputId },
   });
