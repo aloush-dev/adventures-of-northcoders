@@ -29,7 +29,7 @@ const SolutionInputForm: React.FC<SolutionInputFormProps> = ({
         return;
       }
       setCheck(data);
-      setAttempt("solution");
+      setAttempt(solution);
       setInputBoxValue("");
     },
   });
