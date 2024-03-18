@@ -16,7 +16,7 @@ export const ProgressSummary = async ({
   if (!puzzles) return <p>loading....</p>;
 
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className="flex items-center justify-center gap-4">
       {puzzles?.map((puzzle, index) => {
         return <ProgressCard puzzle={puzzle} key={index} />;
       })}

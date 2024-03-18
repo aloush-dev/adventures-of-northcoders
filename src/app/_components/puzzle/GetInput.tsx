@@ -8,7 +8,7 @@ type GetInputProps = {
   part_1_complete: boolean | null;
 };
 
-const GetInput: React.FC<GetInputProps> = ({ input, part_1_complete }) => {
+const GetInput: React.FC<GetInputProps> = ({ input}) => {
   const downloadTxtFile = () => {
     // Step 2: Create a Blob from the text
     const blob = new Blob([input], { type: "text/plain" });
