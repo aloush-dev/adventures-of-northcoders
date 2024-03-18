@@ -3,12 +3,16 @@ import { ProgressCard } from "./ProgressCard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "~/server/auth";
 
-export const ProgressSummary = async () => {
+export const ProgressSummary = async ({
+  collectionName,
+}: {
+  collectionName: string;
+}) => {
   const session = await getServerSession(authOptions);
   if (!session) return <p>Error</p>;
   const id = session.user.id;
 
-  const puzzles = await getAllPuzzlesProgressForUser(+id, "intro-week-beta");
+  const puzzles = await getAllPuzzlesProgressForUser(+id, collectionName);
   if (!puzzles) return <p>loading....</p>;
 
   return (
