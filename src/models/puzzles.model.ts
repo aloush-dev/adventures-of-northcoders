@@ -118,3 +118,48 @@ export async function updatePuzzleProgressForUser(
     data,
   });
 }
+export async function addCommunityPuzzle({
+  part1Instructions,
+  part2Instructions,
+  puzzleName,
+  input,
+  answerPart1,
+  answerPart2,
+  createdBy,
+}: {
+  part1Instructions: string;
+  part2Instructions: string;
+  input: string;
+  puzzleName: string;
+  answerPart1: string;
+  answerPart2: string;
+  createdBy: number;
+}) {
+  const mostRecentPuzzleNumber = await getMostRecentCommunityPuzzleNumber();
+  return db.puzzle.create({
+    data: {
+      collection: "community",
+      puzzleNumber: mostRecentPuzzleNumber
+        ? mostRecentPuzzleNumber.puzzleNumber + 1
+        : 1,
+      part1Instructions,
+      part2Instructions,
+      puzzleName,
+      Input: { create: { input, answerPart1, answerPart2 } },
+      createdBy,
+    },
+  });
+}
+function getMostRecentCommunityPuzzleNumber() {
+  return db.puzzle.findFirst({
+    where: { collection: "community" },
+    orderBy: { puzzleNumber: "desc" },
+    select: { puzzleNumber: true },
+  });
+}
+export async function getCommunityPuzzles() {
+  return db.puzzle.findMany({
+    where: { collection: "community" },
+    include: { UserCreatedBy: { select: { name: true } } },
+  });
+}

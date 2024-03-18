@@ -7,3 +7,7 @@ export const deSlugTitle = (slug: string): string => {
 
   return titleCase;
 };
+
+export const normaliseTextFromForm = (text: string): string => {
+  return text.replace(/\r/g, "");
+};
