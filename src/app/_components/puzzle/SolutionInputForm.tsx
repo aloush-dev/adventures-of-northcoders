@@ -47,32 +47,37 @@ const SolutionInputForm: React.FC<SolutionInputFormProps> = ({
     });
   }
   return (
-    <form onSubmit={handleSubmit} className="my-8 flex">
-      <input
-        className="remove-arrow rounded-lg bg-gray-200 p-2 text-gray-600"
-        name="solution"
-        type="text"
-        value={inputBoxValue}
-        onChange={(e) => setInputBoxValue(e.target.value)}
-      ></input>
-      <button
-        className={`
+    <form onSubmit={handleSubmit} className="my-8 flex flex-col">
+      <div className="my-2">
+        {check && (
+          <span>
+            Youre answer:{attempt} is too {check}
+          </span>
+        )}
+      </div>
+
+      <div className="flex">
+        <input
+          className="remove-arrow rounded-lg bg-gray-200 p-2 text-gray-600"
+          name="solution"
+          type="text"
+          value={inputBoxValue}
+          onChange={(e) => setInputBoxValue(e.target.value)}
+        ></input>
+        <button
+          className={`
     mx-2 flex items-center justify-center 
     rounded-lg bg-gray-200 p-2 
     font-semibold text-gray-600
     `}
-        type="submit"
-      >
-        Submit
-        <div className="px-2 text-xl">
-          <IoSend />
-        </div>
-      </button>
-      {check && (
-        <span>
-          {attempt}: too {check}
-        </span>
-      )}
+          type="submit"
+        >
+          Submit
+          <div className="px-2 text-xl">
+            <IoSend />
+          </div>
+        </button>
+      </div>
     </form>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import MainButton from "../ui/MainButton";
+import { IoDownload } from "react-icons/io5";
 
 type GetInputProps = {
   input: string;
@@ -26,10 +27,15 @@ const GetInput: React.FC<GetInputProps> = ({ input, part_1_complete }) => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
-  const buttonText =
-    `Your input ` +
-    (part_1_complete ? `hasn't changed but access it again` : ``);
-  return <MainButton onClick={downloadTxtFile}>{buttonText}</MainButton>;
+
+  return (
+    <MainButton onClick={downloadTxtFile}>
+      Download Input{" "}
+      <div className="text-2xl items-center px-2">
+        <IoDownload />
+      </div>
+    </MainButton>
+  );
 };
 
 export default GetInput;
