@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { getAllCollections } from "~/models/collections.model";
-import { checkSolution, getAllPuzzleInfo } from "~/models/puzzles.model";
+import {
+  checkSolution,
+  getAllPuzzleInfo,
+  getAllPuzzlesProgressForUser,
+} from "~/models/puzzles.model";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -48,5 +52,10 @@ export const puzzleRouter = createTRPCRouter({
         input.inputId,
         +input.part as 1 | 2,
       );
+    }),
+  getAllPuzzlesProgressForUser: protectedProcedure
+    .input(z.object({ id: z.number(), collectionName: z.string() }))
+    .query(async ({ input }) => {
+      return await getAllPuzzlesProgressForUser(input.id, input.collectionName);
     }),
 });

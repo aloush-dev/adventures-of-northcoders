@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Header } from "./_components/header/Header";
-// import ProgressTracker from "./_components/puzzle/ProgressTracker";
 import { Footer } from "./_components/footer/Footer";
+import { Providers } from "./Provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,15 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider cookies={cookies().toString()}>
-          <div id="profile-modal">
-            <Header />
-            <main className="flex min-h-screen-act flex-col bg-gray-800 text-white">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </TRPCReactProvider>
+        <Providers>
+          <TRPCReactProvider cookies={cookies().toString()}>
+            <div id="profile-modal">
+              <Header />
+              <main className="flex min-h-screen-act flex-col bg-gray-800 text-white">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </TRPCReactProvider>
+        </Providers>
       </body>
     </html>
   );

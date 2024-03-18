@@ -75,7 +75,6 @@ export async function checkSolution(
   inputId: string,
   part: 1 | 2,
 ): Promise<"HIGH" | "LOW" | "CORRECT"> {
-  console.log({ inputId, solution, part });
 
   const input = await db.input.findFirst({
     where: { id: inputId },

@@ -13,7 +13,7 @@ export const ProgressCard: FC<ProgressCardProps> = async ({ puzzle }) => {
   return (
     <Link
       className=" rounded-lg border-2 border-transparent bg-gray-200 p-2 text-gray-800 hover:border-2 hover:border-yellow-400"
-      href={`/puzzle/${collection}/${puzzleNumber}`}
+      href={`/puzzles/${collection}/${puzzleNumber}`}
     >
       <div className="text-center text-lg">{deSlugTitle(puzzleName).replace(" ", ". ")}</div>
       <div className="flex justify-between font-bold">

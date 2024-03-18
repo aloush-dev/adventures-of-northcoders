@@ -35,7 +35,7 @@ const SolutionPage: FC<SolutionPageProps> = async ({
   return (
     <main>
       {message[correctness]}
-      <Link href={`/puzzle/${puzzleCollection}/${puzzleNumber}`}>
+      <Link href={`/puzzles/${puzzleCollection}/${puzzleNumber}`}>
         Back to puzzle
       </Link>
     </main>
