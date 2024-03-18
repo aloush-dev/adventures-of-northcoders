@@ -1,25 +1,16 @@
-"use client";
+import React from "react";
+import CollectionCard from "../_components/puzzle/CollectionCard";
+import { getAllCollections } from "~/models/collections.model";
 
-import React, { useState } from "react";
-import { api } from "~/trpc/react";
-import CollectionTitle from "../_components/puzzle/CollectionTitle";
-import PuzzleCard from "../_components/puzzle/PuzzleCard";
+const PuzzlesPage: React.FC = async () => {
+  const collections = await getAllCollections();
 
-const PuzzlesPage: React.FC = () => {
-  const { data } = api.puzzle.getPuzzleCollections.useQuery();
-  const [open, setOpen] = useState(true);
-
-  if (!data) return <p>loading...</p>;
+  if (!collections) return null;
 
   return (
     <div className="m-6">
-      {data.map((collection, index) => {
-        return (
-          <div key={index}>
-            <CollectionTitle open={open} setOpen={setOpen} collection={collection} />
-            {open && <PuzzleCard collection={collection} />}
-          </div>
-        );
+      {collections.map((collection, index) => {
+        return <CollectionCard key={index} collection={collection} />;
       })}
     </div>
   );
