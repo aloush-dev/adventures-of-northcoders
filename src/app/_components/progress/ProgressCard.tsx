@@ -15,22 +15,22 @@ export const ProgressCard: FC<ProgressCardProps> = async ({ puzzle }) => {
       className=" rounded-lg border-2 border-transparent bg-gray-200 p-2 text-gray-800 hover:border-2 hover:border-yellow-400"
       href={`/puzzle/${collection}/${puzzleNumber}`}
     >
-      <div>{deSlugTitle(puzzleName).replace(" ", ". ")}</div>
-      <div className="flex justify-between">
-        <div className="m-2 flex flex-col items-center justify-center">
+      <div className="text-center text-lg">{deSlugTitle(puzzleName).replace(" ", ". ")}</div>
+      <div className="flex justify-between font-bold">
+        <div className="m-2 flex flex-col items-center justify-center ">
           Part 1
           {puzzle.UserSolution[0]?.part_1_complete ? (
-            <FaRegCheckCircle />
+            <FaRegCheckCircle className="text-4xl text-green-600" />
           ) : (
-            <FaRegCircle />
+            <FaRegCircle className="text-4xl text-orange-500" />
           )}
         </div>
         <div className="m-2 flex flex-col items-center justify-center">
           Part 2
           {puzzle.UserSolution[0]?.part_2_complete ? (
-            <FaRegCheckCircle />
+            <FaRegCheckCircle className="text-4xl text-green-600" />
           ) : (
-            <FaRegCircle />
+            <FaRegCircle className="text-4xl text-orange-500" />
           )}
         </div>
       </div>

@@ -9,8 +9,7 @@ type PartProps = {
   inputId: string;
   puzzleCollection: string;
   puzzleNumber: number;
-  setShowConfetti: Dispatch<SetStateAction<boolean>>
-
+  setShowConfetti: Dispatch<SetStateAction<boolean>>;
 };
 
 const Part: React.FC<PartProps> = ({
@@ -20,7 +19,7 @@ const Part: React.FC<PartProps> = ({
   inputId,
   puzzleCollection,
   puzzleNumber,
-  setShowConfetti
+  setShowConfetti,
 }) => {
   return (
     <>
@@ -28,7 +27,7 @@ const Part: React.FC<PartProps> = ({
         <Markdown>{instructions}</Markdown>
       </div>
       {solution ? (
-        <div className="my-2 flex flex-col bg-slate-100 text-xl text-slate-700 rounded-lg p-2 w-fit">
+        <div className="my-2 flex w-fit flex-col rounded-lg bg-slate-100 p-2 text-xl text-slate-700">
           Congratulations!
           <span>
             Part {partNumber} complete: your solution was{" "}

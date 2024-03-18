@@ -7,7 +7,8 @@ const ProgressPage = async () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex flex-col">
+        <h2 className="text-4xl flex justify-center text-center my-4 font-bold">Available Puzzles</h2>
         {collections.map((collection, index) => {
           return (
             <div className="flex flex-col" key={index}>
@@ -24,3 +25,4 @@ const ProgressPage = async () => {
 };
 
 export default ProgressPage;
+
