@@ -10,7 +10,7 @@ export const Splash = ({ authed }: { authed: boolean }) => {
   };
 
   return (
-    <>
+    <div className="min-h-screen-act flex flex-col justify-center items-center">
       <motion.div
         initial={{ y: -1500 }}
         animate={{ y: 0 }}
@@ -99,6 +99,6 @@ export const Splash = ({ authed }: { authed: boolean }) => {
           Lets go!
         </motion.button>
       )}
-    </>
+    </div>
   );
 };
