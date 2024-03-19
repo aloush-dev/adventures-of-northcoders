@@ -17,6 +17,7 @@ export async function Header() {
         </Link>
         {session ? <Link href="/puzzles">Puzzles</Link> : ""}
         {session ? <Link href="/progress">My Progress</Link> : ""}
+        {session ? <Link href="/create">Create Your Own Puzzle</Link> : ""}
       </div>
       <div className="h-auto w-auto">
         {session ? <ProfileView session={session} /> : <SignInButton />}

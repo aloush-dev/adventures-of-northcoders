@@ -10,7 +10,7 @@ const MarkdownInput: FC<MarkdownInputProps> = ({ name }) => {
     <section className="grid w-full grid-cols-2 py-2">
       <textarea
         name={name}
-        className="h-96 w-full text-black"
+        className="remove-arrow w-1/2 rounded-lg bg-gray-200 p-2 text-gray-600 h-96 w-full"
         value={markdown}
         placeholder="Enter markdown here..."
         onChange={(e) => setMarkdown(e.target.value)}
@@ -26,7 +26,7 @@ type MarkdownPreviewProps = { markdown: string };
 
 const MarkdownPreview: FC<MarkdownPreviewProps> = ({ markdown }) => {
   return (
-    <div className="mx-2 bg-black p-5 text-white">
+    <div className="mx-2 bg-slate-950 p-5 text-white rounded-lg">
       <Markdown>{markdown}</Markdown>
     </div>
   );
