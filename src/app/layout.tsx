@@ -16,7 +16,7 @@ const inter = Inter({
 export const metadata = {
   title: "Adventures of Northcoders",
   description: "Advent of code NCified",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/site-icon.ico" }],
 };
 
 export default function RootLayout({
